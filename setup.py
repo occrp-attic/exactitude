@@ -33,6 +33,11 @@ setup(
         'pycountry==17.1.8',
         'urlnorm==1.1.4',
         'flanker>=0.3.4',
+        'countrynames>=1.1.2',
+        'parsedatetime==2.1',
+        'phonenumbers>=8.3.3',
+        'Babel==2.4.0',
+        'jsonschema==2.6.0',
         'six'
     ],
     tests_require=[
