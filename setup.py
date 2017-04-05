@@ -29,7 +29,6 @@ setup(
     test_suite='nose.collector',
     install_requires=[
         'normality>=0.4.0',
-        'fingerprints>=0.3.2',
         'pycountry==17.1.8',
         'urlnorm==1.1.4',
         'flanker>=0.3.4',
@@ -41,6 +40,7 @@ setup(
         'six'
     ],
     tests_require=[
+        'nose'
     ],
     entry_points={
     }

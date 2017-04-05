@@ -12,8 +12,9 @@ CUT_ZEROES = re.compile(r'(\-00?)?\-00?$')
 
 @format_checker.checks('partial-date')
 def is_partial_date(date):
+    date = stringify(date)
     if date is None:
-        return True
+        return False
     return PARTIAL_DATE_RE.match(date) is not None
 
 
