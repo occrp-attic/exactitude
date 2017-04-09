@@ -2,10 +2,7 @@ import socket
 from normality import stringify
 from urlparse import urlparse
 
-from dalet.validate import format_checker
 
-
-@format_checker.checks('domain')
 def is_domain(domain):
     """Validate an IDN compatible domain."""
     domain = stringify(domain)

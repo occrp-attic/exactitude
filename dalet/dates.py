@@ -3,14 +3,11 @@ import parsedatetime
 from datetime import datetime, date
 from normality import stringify
 
-from dalet.validate import format_checker
-
 # JS: '^([12]\\d{3}(-[01]?[1-9](-[0123]?[1-9])?)?)?$'
 PARTIAL_DATE_RE = re.compile('^([12]\d{3}(-[01]?[0-9](-[0123]?[0-9])?)?)?$')
 CUT_ZEROES = re.compile(r'(\-00?)?\-00?$')
 
 
-@format_checker.checks('partial-date')
 def is_partial_date(date):
     date = stringify(date)
     if date is None:

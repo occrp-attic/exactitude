@@ -2,8 +2,6 @@ from urlnorm import norm
 from normality import stringify
 from urlparse import urldefrag
 
-from dalet.validate import format_checker
-
 
 def parse_url(text):
     """Clean and verify a URL."""
@@ -23,6 +21,5 @@ def parse_url(text):
         return
 
 
-@format_checker.checks('url')
 def is_url(url):
     return parse_url(url) is not None

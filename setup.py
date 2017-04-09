@@ -36,7 +36,6 @@ setup(
         'parsedatetime==2.1',
         'phonenumbers>=8.3.3',
         'Babel==2.4.0',
-        'jsonschema==2.6.0',
         'six'
     ],
     tests_require=[

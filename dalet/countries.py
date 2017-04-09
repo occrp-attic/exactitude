@@ -1,8 +1,6 @@
 import countrynames
 from pycountry import countries
 
-from dalet.validate import format_checker
-
 COUNTRY_NAMES = {
     'zz': 'Global',
     'eu': 'European Union',
@@ -26,7 +24,6 @@ for country in countries:
         COUNTRY_NAMES[code] = country.name
 
 
-@format_checker.checks('country-code')
 def is_country_code(code):
     if code is None:
         return False
