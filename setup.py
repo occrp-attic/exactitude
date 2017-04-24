@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='dalet',
-    version='1.1',
+    version='1.2',
     description="A library with data parsers for aleph.",
     long_description="",
     classifiers=[
@@ -32,7 +32,7 @@ setup(
         'pycountry==17.1.8',
         'urlnorm==1.1.4',
         'flanker>=0.3.4',
-        'countrynames>=1.1.2',
+        'countrynames>=1.2',
         'parsedatetime==2.1',
         'phonenumbers>=8.3.3',
         'Babel==2.4.0',
