@@ -20,7 +20,7 @@ def clean_address(address):
     address = collapse_spaces(address)
 
     # return none if this is just a country code or name:
-    code = countrynames.to_code(address, fuzzy=False, warn=False)
+    code = countrynames.to_code(address, fuzzy=False)
     if code is not None:
         return
     return address
