@@ -1,6 +1,6 @@
 import socket
 from normality import stringify
-from urlparse import urlparse
+from six.moves.urllib.parse import urlparse
 
 
 def is_domain(domain):
@@ -25,12 +25,6 @@ def parse_domain(text):
         domain = urlparse(domain).hostname or domain
     except ValueError:
         pass
-
-    if '@' in domain:
-        _, domain = domain.rsplit('@', 1)
-    domain = domain.lower()
-    if domain.startswith('www.'):
-        domain = domain[len('www.'):]
-    domain = domain.strip('.')
+    domain = domain.lower().strip('.')
     if is_domain(domain):
         return domain

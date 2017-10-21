@@ -1,6 +1,7 @@
-from pycountry import languages
+from dalet.locale import locale
 
-LANGUAGE_NAMES = {l.alpha_2: l.name for l in languages}
+LANGUAGE_NAMES = dict(locale.languages.items())
+LANGUAGE_NAMES = {k: v for k, v in LANGUAGE_NAMES.items() if len(k) == 2}
 
 
 def is_language_code(code):

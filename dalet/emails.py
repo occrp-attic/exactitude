@@ -1,5 +1,4 @@
 from normality import stringify
-from flanker.addresslib import address
 
 
 def parse_email(email):
@@ -10,8 +9,11 @@ def parse_email(email):
     email = stringify(email)
     if email is None:
         return
-    parsed = address.parse(email)
-    if parsed is not None:
-        email = parsed.address.lower()
-        email = email.strip("'").strip('"')
-        return email
+    if '@' not in email:
+        return
+    return email
+    # parsed = address.parse(email)
+    # if parsed is not None:
+    #     email = parsed.address.lower()
+    #     email = email.strip("'").strip('"')
+    #     return email

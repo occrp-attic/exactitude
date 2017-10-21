@@ -29,9 +29,8 @@ setup(
     install_requires=[
         'six',
         'normality>=0.5.0',
-        'pycountry>=17.9.23',
         'urlnorm>=1.1.4',
-        'flanker>=0.3.4',
+        'babel>=2.5.1',
         'countrynames>=1.2',
         'parsedatetime>=2.1',
         'phonenumbers>=8.8.4'

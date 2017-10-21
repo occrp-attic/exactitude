@@ -1,5 +1,6 @@
 import countrynames
-from pycountry import countries
+
+from dalet.locale import locale
 
 COUNTRY_NAMES = {
     'zz': 'Global',
@@ -16,12 +17,8 @@ COUNTRY_NAMES = {
     'md-pmr': 'Transnistria'
 }
 
-for country in countries:
-    code = country.alpha_2.lower()
-    if hasattr(country, 'common_name'):
-        COUNTRY_NAMES[code] = country.common_name
-    else:
-        COUNTRY_NAMES[code] = country.name
+for code, label in locale.territories.items():
+    COUNTRY_NAMES[code.lower()] = label
 
 
 def is_country_code(code):
