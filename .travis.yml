@@ -6,7 +6,7 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libicu-dev
 install:
-  - pip install -e .
   - pip install coverage nose pyicu
+  - pip install -e .
 script:
   - nosetests --with-coverage --cover-package=dalet --cover-erase

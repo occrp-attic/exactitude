@@ -1,6 +1,6 @@
-from urlnorm import norm
+from urltools import normalize
 from normality import stringify
-from urlparse import urldefrag
+from six.moves.urllib.parse import urldefrag
 
 
 def parse_url(text):
@@ -11,12 +11,11 @@ def parse_url(text):
         return
     if url.startswith('//'):
         url = 'http:' + url
-    elif '://' not in url:
-        url = 'http://' + url
     try:
-        norm_url = norm(url)
+        norm_url = normalize(url)
         norm_url, _ = urldefrag(norm_url)
-        return norm_url
+        if '://' in norm_url:
+            return norm_url
     except:
         return
 
