@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='dalet',
-    version='1.2.2',
+    version='1.3.0',
     description="A library with real-world data parsers.",
     long_description="",
     classifiers=[
