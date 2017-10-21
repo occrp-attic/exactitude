@@ -1,7 +1,6 @@
-from babel import Locale
+from pycountry import languages
 
-LANGUAGE_NAMES = dict(Locale('en').languages.items())
-LANGUAGE_NAMES = {k: v for k, v in LANGUAGE_NAMES.items() if len(k) == 2}
+LANGUAGE_NAMES = {l.alpha_2: l.name for l in languages}
 
 
 def is_language_code(code):
