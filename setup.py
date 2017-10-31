@@ -27,13 +27,13 @@ setup(
     zip_safe=False,
     test_suite='nose.collector',
     install_requires=[
-        'six',
-        'normality>=0.5.0',
-        'babel>=2.5.1',
-        'urlnormalizer>=1.0.2',
-        'countrynames>=1.2',
-        'parsedatetime>=2.1',
-        'phonenumbers>=8.8.4'
+        'six >= 1.11.0',
+        'normality >= 0.5.0',
+        'babel >= 2.5.1',
+        'urlnormalizer >= 1.0.3',
+        'countrynames >= 1.2',
+        'parsedatetime >= 2.1',
+        'phonenumbers >= 8.8.4'
     ],
     tests_require=['nose'],
     entry_points={}

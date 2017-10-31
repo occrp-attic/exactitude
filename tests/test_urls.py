@@ -12,7 +12,7 @@ class UrlsTest(unittest.TestCase):
 
     def test_parse_url(self):
         self.assertEqual(parse_url('http://foo.com'), 'http://foo.com/')
-        self.assertEqual(parse_url('http://foo.com#lala'), 'http://foo.com/')
+        self.assertEqual(parse_url('http://foo.com/#lala'), 'http://foo.com/')
 
         self.assertEqual(parse_url('http://foo.com?b=1&a=2'),
                          'http://foo.com/?a=2&b=1')
