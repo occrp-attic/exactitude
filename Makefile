@@ -1,5 +1,5 @@
 
-all: clean test dists
+all: clean test dists release
 
 test:
 	nosetests --with-coverage --cover-package=dalet --cover-erase
