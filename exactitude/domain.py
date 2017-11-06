@@ -26,7 +26,7 @@ class DomainType(ExactitudeType):
             domain = domain.rsplit(':', 1)[0]
             domain = domain.rstrip('.')
             # handle unicode
-            domain = domain.encode("idna")
+            domain = domain.encode("idna").decode('ascii')
         except ValueError:
             return None
         return domain
