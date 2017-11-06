@@ -31,3 +31,7 @@ class ExactitudeType(object):
         if not cleaned:
             text = self.clean(text, **kwargs)
         return ensure_list(text)
+
+
+class TextType(ExactitudeType):
+    pass

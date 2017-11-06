@@ -10,15 +10,17 @@ from exactitude.common import ExactitudeType
 
 class PhoneType(ExactitudeType):
 
-    def _clean_countries(self, countries):
+    def _clean_countries(self, countries, country):
         result = set([None])
-        for country in ensure_list(countries):
+        countries = ensure_list(countries)
+        countries.extend(ensure_list(country))
+        for country in countries:
             if isinstance(country, six.string_types):
                 country = country.strip().upper()
                 result.add(country)
         return result
 
-    def clean_text(self, number, countries=None, **kwargs):
+    def clean_text(self, number, countries=None, country=None, **kwargs):
         """Parse a phone number and return in international format.
 
         If no valid phone number can be detected, None is returned. If
@@ -27,9 +29,9 @@ class PhoneType(ExactitudeType):
 
         https://github.com/daviddrysdale/python-phonenumbers
         """
-        for country in self._clean_countries(countries):
+        for code in self._clean_countries(countries, country):
             try:
-                num = parse_number(number, country)
+                num = parse_number(number, code)
                 if is_possible_number(num):
                     if is_valid_number(num):
                         return format_number(num, PhoneNumberFormat.E164)

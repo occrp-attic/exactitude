@@ -18,7 +18,7 @@ class DateType(ExactitudeType):
             return False
         return self.PARTIAL_DATE_RE.match(obj) is not None
 
-    def clean(self, text, guess=True, date_format=None, **kwargs):
+    def clean(self, text, guess=True, format=None, **kwargs):
         """The classic: date parsing, every which way."""
         # handle date/datetime before converting to text.
         if isinstance(text, datetime):
@@ -30,10 +30,10 @@ class DateType(ExactitudeType):
         if text is None:
             return
 
-        if date_format is not None:
+        if format is not None:
             # parse with a specified format
             try:
-                obj = datetime.strptime(text, date_format)
+                obj = datetime.strptime(text, format)
                 return obj.date().isoformat()
             except:
                 return None

@@ -7,6 +7,8 @@ from exactitude.date import DateType
 from exactitude.phone import PhoneType
 from exactitude.country import CountryType
 from exactitude.language import LanguageType
+from exactitude.identifier import IdentifierType
+from exactitude.common import TextType
 
 urls = UrlType()
 names = NameType()
@@ -17,6 +19,8 @@ dates = DateType()
 phones = PhoneType()
 countries = CountryType()
 languages = LanguageType()
+identifiers = IdentifierType()
+texts = TextType()
 
 __all__ = [urls,
            names,
@@ -26,4 +30,6 @@ __all__ = [urls,
            dates,
            phones,
            countries,
-           languages]
+           languages,
+           identifiers,
+           texts]
