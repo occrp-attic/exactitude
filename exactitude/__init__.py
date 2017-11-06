@@ -1,4 +1,5 @@
 from exactitude.url import UrlType
+from exactitude.name import NameType
 from exactitude.domain import DomainType
 from exactitude.email import EmailType
 from exactitude.address import AddressType
@@ -8,6 +9,7 @@ from exactitude.country import CountryType
 from exactitude.language import LanguageType
 
 urls = UrlType()
+names = NameType()
 domains = DomainType()
 emails = EmailType()
 addresses = AddressType()
@@ -17,6 +19,7 @@ countries = CountryType()
 languages = LanguageType()
 
 __all__ = [urls,
+           names,
            domains,
            emails,
            addresses,
