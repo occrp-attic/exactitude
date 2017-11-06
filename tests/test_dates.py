@@ -22,7 +22,7 @@ class DatesTest(unittest.TestCase):
         # self.assertEquals(parse_date('2017-4-4'), '2017-04-04')
 
         # TODO: make this yield an imprecise date somehow?
-        self.assertEquals(dates.clean('4/2017', date_format="%m/%Y"),
+        self.assertEquals(dates.clean('4/2017', format="%m/%Y"),
                           '2017-04-01')
 
     def test_guess_date(self):
