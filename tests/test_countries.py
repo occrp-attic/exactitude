@@ -1,21 +1,21 @@
 import unittest
 
-from dalet import parse_country, is_country_code
+from exactitude import countries
 
 
 class CountriesTest(unittest.TestCase):
 
     def test_country_codes(self):
-        self.assertEqual(parse_country('DE'), 'de')
-        self.assertTrue(is_country_code('DE'))
-        self.assertFalse(is_country_code('DEU'))
-        self.assertFalse(is_country_code('SU'))
-        self.assertTrue(is_country_code('XK'))
-        self.assertTrue(is_country_code('EU'))
+        self.assertEqual(countries.clean('DE'), 'de')
+        self.assertTrue(countries.validate('DE'))
+        self.assertFalse(countries.validate('DEU'))
+        self.assertFalse(countries.validate('SU'))
+        self.assertTrue(countries.validate('XK'))
+        self.assertTrue(countries.validate('EU'))
 
     def test_country_names(self):
-        self.assertEqual(parse_country(None), None)
-        self.assertEqual(parse_country('Takatukaland', guess=False), None)
-        self.assertEqual(parse_country('Germany'), 'de')
-        self.assertEqual(parse_country('Germani'), 'de')
-        self.assertEqual(parse_country('Soviet Union'), 'suhh')
+        self.assertEqual(countries.clean(None), None)
+        self.assertEqual(countries.clean('Takatukaland', guess=False), None)
+        self.assertEqual(countries.clean('Germany'), 'de')
+        # self.assertEqual(countries.clean('Germani'), 'de')
+        self.assertEqual(countries.clean('Soviet Union'), 'suhh')

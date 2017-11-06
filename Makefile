@@ -2,7 +2,7 @@
 all: clean test dists release
 
 test:
-	nosetests --with-coverage --cover-package=dalet --cover-erase
+	nosetests --with-coverage --cover-package=exactitude --cover-erase
 
 dists:
 	python setup.py sdist bdist_wheel

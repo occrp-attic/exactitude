@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name='dalet',
-    version='1.3.0',
+    name='exactitude',
+    version='2.0.0',
     description="A library with real-world data parsers.",
     long_description="",
     classifiers=[
@@ -28,7 +28,7 @@ setup(
     test_suite='nose.collector',
     install_requires=[
         'six >= 1.11.0',
-        'normality >= 0.5.0',
+        'normality >= 0.5.3',
         'babel >= 2.5.1',
         'urlnormalizer >= 1.0.3',
         'countrynames >= 1.2',
