@@ -37,7 +37,7 @@ class CountryType(ExactitudeType):
 
         The input may be a country code, a country name, etc.
         """
-        code = country.lower()
+        code = country.lower().strip()
         if code in self.names:
             return code
         country = countrynames.to_code(country, fuzzy=guess)

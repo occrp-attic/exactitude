@@ -30,6 +30,8 @@ class EmailType(ExactitudeType):
             return None
         mailbox, domain = email.rsplit('@', 1)
         domain = self.domains.clean(domain, **kwargs)
+        if domain is None or mailbox is None:
+            return
         return '@'.join((mailbox, domain))
 
     def normalize(self, email, **kwargs):

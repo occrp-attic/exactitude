@@ -16,3 +16,8 @@ class LanguageType(ExactitudeType):
         if text is None:
             return False
         return text.lower() in self.names
+
+    def clean_text(self, text, **kwargs):
+        code = text.lower().strip()
+        if code in self.names:
+            return code
