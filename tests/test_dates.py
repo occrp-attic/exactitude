@@ -8,6 +8,9 @@ from exactitude import dates
 class DatesTest(unittest.TestCase):
 
     def test_is_partial_date(self):
+        self.assertTrue(dates.validate('2017-04-04 10:30:29'))
+        self.assertTrue(dates.validate('2017-04-04 10:30'))
+        self.assertTrue(dates.validate('2017-04-04 10'))
         self.assertTrue(dates.validate('2017-04-04'))
         self.assertTrue(dates.validate('2017-4-4'))
         self.assertTrue(dates.validate('2017-4'))
@@ -16,6 +19,12 @@ class DatesTest(unittest.TestCase):
         self.assertFalse(dates.validate(None))
         self.assertFalse(dates.validate(5))
         self.assertFalse(dates.validate('2017-20-01'))
+
+    def test_convert_datetime(self):
+        dt = datetime.utcnow()
+        iso, _ = dt.isoformat().split('.', 1)
+        self.assertEquals(dates.clean(dt), iso)
+        self.assertTrue(dates.validate(iso))
 
     def test_parse_date(self):
         self.assertEquals(dates.clean('2017-04-04'), '2017-04-04')

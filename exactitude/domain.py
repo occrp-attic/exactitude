@@ -1,4 +1,5 @@
 # import socket
+from normality import stringify
 from six.moves.urllib.parse import urlparse
 
 from exactitude.common import ExactitudeType
@@ -15,6 +16,17 @@ class DomainType(ExactitudeType):
     #         return True
     #     except:
     #         return False
+
+    def validate(self, obj, **kwargs):
+        """Check if a thing is a valid domain name."""
+        obj = stringify(obj)
+        if obj is None:
+            return False
+        if '.' not in obj:
+            return False
+        if len(obj) < 4:
+            return False
+        return True
 
     def clean_text(self, domain, **kwargs):
         """Try to extract only the domain bit from the """

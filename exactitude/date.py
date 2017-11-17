@@ -8,23 +8,30 @@ from exactitude.common import ExactitudeType
 
 class DateType(ExactitudeType):
     # JS: '^([12]\\d{3}(-[01]?[1-9](-[0123]?[1-9])?)?)?$'
-    PARTIAL_DATE_RE = re.compile('^([12]\d{3}(-[01]?[0-9](-[0123]?[0-9])?)?)?$')
+    DATE_RE = re.compile('^([12]\d{3}(-[01]?[0-9](-[0123]?[0-9]([T ]([012]?\d(:\d{1,2}(:\d{1,2})?)?)?)?)?)?)?$')  # noqa
     CUT_ZEROES = re.compile(r'(\-00?)?\-00?$')
+    MAX_LENGTH = 19
 
     def validate(self, obj, **kwargs):
         """Check if a thing is a valid date."""
         obj = stringify(obj)
         if obj is None:
             return False
-        return self.PARTIAL_DATE_RE.match(obj) is not None
+        return self.DATE_RE.match(obj) is not None
+
+    def clean_datetime(self, obj):
+        """Python objects want to be text."""
+        if isinstance(obj, datetime):
+            return obj.isoformat()[:self.MAX_LENGTH]
+        if isinstance(obj, date):
+            return obj.isoformat()
 
     def clean(self, text, guess=True, format=None, **kwargs):
         """The classic: date parsing, every which way."""
         # handle date/datetime before converting to text.
-        if isinstance(text, datetime):
-            text = text.date()
-        if isinstance(text, date):
-            return text.isoformat()
+        date = self.clean_datetime(text)
+        if date is not None:
+            return date
 
         text = stringify(text)
         if text is None:
@@ -45,12 +52,12 @@ class DateType(ExactitudeType):
                 return obj.date().isoformat()
             except Exception:
                 pass
-        else:
-            # limit to the date part of a presumed date string
-            text = text[:10]
 
+        # limit to the date part of a presumed date string
+        text = text[:self.MAX_LENGTH]
         # strip -00-00 from dates because it makes ES barf.
         text = self.CUT_ZEROES.sub('', text)
+        text = text.replace(' ', 'T')
 
         if self.validate(text):
             return text
