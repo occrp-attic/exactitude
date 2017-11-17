@@ -20,26 +20,39 @@ class DatesTest(unittest.TestCase):
         self.assertFalse(dates.validate(5))
         self.assertFalse(dates.validate('2017-20-01'))
 
+    def test_chop_dates(self):
+        self.assertEquals(dates.clean('2017-00-00'), '2017')
+        self.assertEquals(dates.clean('2017-00-00T00:00:00'), '2017')
+        self.assertEquals(dates.clean('2017-00-00T12:03:49'), '2017')
+        self.assertEquals(dates.clean('2017-01-01T00:00:00'), '2017-01-01')
+
     def test_convert_datetime(self):
         dt = datetime.utcnow()
         iso, _ = dt.isoformat().split('.', 1)
         self.assertEquals(dates.clean(dt), iso)
         self.assertTrue(dates.validate(iso))
 
+        dt = datetime.utcnow().date()
+        iso = dt.isoformat()
+        self.assertEquals(dates.clean(dt), iso)
+
     def test_parse_date(self):
+        self.assertEquals(dates.clean(None), None)
+        self.assertEquals(dates.clean(''), None)
         self.assertEquals(dates.clean('2017-04-04'), '2017-04-04')
         # self.assertEquals(parse_date('2017-4-4'), '2017-04-04')
 
         # TODO: make this yield an imprecise date somehow?
         self.assertEquals(dates.clean('4/2017', format="%m/%Y"),
                           '2017-04-01')
+        self.assertEquals(dates.clean('4/2xx017', format="%m/%Y"),
+                          None)
 
     def test_guess_date(self):
         self.assertEquals(dates.clean('12.4.2017'), '2017-04-12')
 
     def test_fuzzy_date_parser_failure(self):
-        with self.assertRaisesRegexp(Exception, 'Failed to parse the string.'):
-            dates.fuzzy_date_parser('nothing')
+        self.assertEquals(dates.fuzzy_date_parser('nothing'), None)
 
     def test_fuzzy_date_parser_success_english(self):
         result = dates.fuzzy_date_parser('15 march, 1987')

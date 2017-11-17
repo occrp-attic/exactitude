@@ -9,7 +9,7 @@ from exactitude.common import ExactitudeType
 class DateType(ExactitudeType):
     # JS: '^([12]\\d{3}(-[01]?[1-9](-[0123]?[1-9])?)?)?$'
     DATE_RE = re.compile('^([12]\d{3}(-[01]?[0-9](-[0123]?[0-9]([T ]([012]?\d(:\d{1,2}(:\d{1,2})?)?)?)?)?)?)?$')  # noqa
-    CUT_ZEROES = re.compile(r'(\-00?)?\-00?$')
+    CUT_ZEROES = re.compile(r'((\-00.*)|(.00:00:00))$')
     MAX_LENGTH = 19
 
     def validate(self, obj, **kwargs):
@@ -47,11 +47,9 @@ class DateType(ExactitudeType):
 
         if guess and not self.validate(text):
             # use dateparser to guess the format
-            try:
-                obj = self.fuzzy_date_parser(text)
+            obj = self.fuzzy_date_parser(text)
+            if obj is not None:
                 return obj.date().isoformat()
-            except Exception:
-                pass
 
         # limit to the date part of a presumed date string
         text = text[:self.MAX_LENGTH]
@@ -77,12 +75,6 @@ class DateType(ExactitudeType):
             const = parsedatetime.Constants(locale)
             const.re_option += re.UNICODE
             parser = parsedatetime.Calendar(const)
-            try:
-                parsed, ok = parser.parse(text)
-            except:
-                continue
-
+            parsed, ok = parser.parse(text)
             if ok:
                 return datetime(*parsed[:6])
-
-        raise Exception('Failed to parse the string.')

@@ -19,12 +19,14 @@ class DomainType(ExactitudeType):
 
     def validate(self, obj, **kwargs):
         """Check if a thing is a valid domain name."""
-        obj = stringify(obj)
-        if obj is None:
+        text = stringify(obj)
+        if text is None:
             return False
-        if '.' not in obj:
+        if '.' not in text:
             return False
-        if len(obj) < 4:
+        if '@' in text or ':' in text:
+            return False
+        if len(text) < 4:
             return False
         return True
 
@@ -41,4 +43,5 @@ class DomainType(ExactitudeType):
             domain = domain.encode("idna").decode('ascii')
         except ValueError:
             return None
-        return domain
+        if self.validate(domain):
+            return domain
