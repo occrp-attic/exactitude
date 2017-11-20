@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import re
 from normality import stringify
+from normality.cleaning import strip_quotes
 
 from exactitude.common import ExactitudeType
 from exactitude.domain import DomainType
@@ -28,6 +29,7 @@ class EmailType(ExactitudeType):
         """
         if not self.EMAIL_REGEX.match(email):
             return None
+        email = strip_quotes(email)
         mailbox, domain = email.rsplit('@', 1)
         domain = self.domains.clean(domain, **kwargs)
         if domain is None or mailbox is None:

@@ -1,4 +1,5 @@
 import re
+import pytz
 import parsedatetime
 from normality import stringify
 from datetime import datetime, date
@@ -9,6 +10,7 @@ from exactitude.common import ExactitudeType
 class DateType(ExactitudeType):
     # JS: '^([12]\\d{3}(-[01]?[1-9](-[0123]?[1-9])?)?)?$'
     DATE_RE = re.compile('^([12]\d{3}(-[01]?[0-9](-[0123]?[0-9]([T ]([012]?\d(:\d{1,2}(:\d{1,2})?)?)?)?)?)?)?$')  # noqa
+    DATE_FULL = re.compile('\d{4}-\d{2}-\d{2}.*')
     CUT_ZEROES = re.compile(r'((\-00.*)|(.00:00:00))$')
     MAX_LENGTH = 19
 
@@ -19,17 +21,38 @@ class DateType(ExactitudeType):
             return False
         return self.DATE_RE.match(obj) is not None
 
-    def clean_datetime(self, obj):
+    def _clean_datetime(self, obj):
         """Python objects want to be text."""
         if isinstance(obj, datetime):
+            # if it's not naive, put it on zulu time first:
+            if obj.tzinfo is not None:
+                obj = obj.astimezone(pytz.utc)
             return obj.isoformat()[:self.MAX_LENGTH]
         if isinstance(obj, date):
             return obj.isoformat()
 
+    def _clean_text(self, text):
+        # limit to the date part of a presumed date string
+        # FIXME: this may get us rid of TZ info?
+        text = text[:self.MAX_LENGTH]
+        if not self.validate(text):
+            return None
+        text = text.replace(' ', 'T')
+        # fix up dates like 2017-1-5 into 2017-01-05
+        if not self.DATE_FULL.match(text):
+            parts = text.split('T', 1)
+            date = [p.zfill(2) for p in parts[0].split('-')]
+            parts[0] = '-'.join(date)
+            text = 'T'.join(parts)
+            text = text[:self.MAX_LENGTH]
+        # strip -00-00 from dates because it makes ES barf.
+        text = self.CUT_ZEROES.sub('', text)
+        return text
+
     def clean(self, text, guess=True, format=None, **kwargs):
         """The classic: date parsing, every which way."""
         # handle date/datetime before converting to text.
-        date = self.clean_datetime(text)
+        date = self._clean_datetime(text)
         if date is not None:
             return date
 
@@ -51,14 +74,7 @@ class DateType(ExactitudeType):
             if obj is not None:
                 return obj.date().isoformat()
 
-        # limit to the date part of a presumed date string
-        text = text[:self.MAX_LENGTH]
-        # strip -00-00 from dates because it makes ES barf.
-        text = self.CUT_ZEROES.sub('', text)
-        text = text.replace(' ', 'T')
-
-        if self.validate(text):
-            return text
+        return self._clean_text(text)
 
     def fuzzy_date_parser(self, text):
         """Thin wrapper around ``parsedatetime`` module.

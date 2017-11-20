@@ -28,7 +28,8 @@ setup(
     test_suite='nose.collector',
     install_requires=[
         'six >= 1.11.0',
-        'normality >= 0.5.3',
+        'normality >= 0.5.6',
+        'pytz >= 2017.3',
         'babel >= 2.5.1',
         'urlnormalizer >= 1.0.3',
         'countrynames >= 1.2',
