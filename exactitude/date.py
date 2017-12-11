@@ -9,7 +9,7 @@ from exactitude.common import ExactitudeType
 
 class DateType(ExactitudeType):
     # JS: '^([12]\\d{3}(-[01]?[1-9](-[0123]?[1-9])?)?)?$'
-    DATE_RE = re.compile('^([12]\d{3}(-[01]?[0-9](-[0123]?[0-9]([T ]([012]?\d(:\d{1,2}(:\d{1,2})?)?)?)?)?)?)?$')  # noqa
+    DATE_RE = re.compile('^([12]\d{3}(-[01]?[0-9](-[0123]?[0-9]([T ]([012]?\d(:\d{1,2}(:\d{1,2}(\.\d{6})?(Z|[-+]\d{2}(:?\d{2})?)?)?)?)?)?)?)?)?$')  # noqa
     DATE_FULL = re.compile('\d{4}-\d{2}-\d{2}.*')
     CUT_ZEROES = re.compile(r'((\-00.*)|(.00:00:00))$')
     MAX_LENGTH = 19

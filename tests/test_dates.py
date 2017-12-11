@@ -8,10 +8,12 @@ from exactitude import dates
 class DatesTest(unittest.TestCase):
 
     def test_validate(self):
-        self.assertTrue(dates.validate('2017-04-04 10:30:29'))
         self.assertTrue(dates.validate('2017-04-04T10:30:29'))
-        self.assertTrue(dates.validate('2017-04-04T10:30:29+00:00'))
-        self.assertTrue(dates.validate('2017-04-04T10:30:29-03:00'))
+        self.assertTrue(dates.validate('2017-04-04T10:30:29Z'))
+        self.assertTrue(dates.validate('2017-04-04T10:30:29+01'))
+        self.assertTrue(dates.validate('2017-04-04T10:30:29+0200'))
+        self.assertTrue(dates.validate('2017-04-04T10:30:29+03:00'))
+        self.assertTrue(dates.validate('2017-04-04T10:30:29-04:00'))
         self.assertTrue(dates.validate(datetime.utcnow().isoformat()))
         self.assertFalse(dates.validate('01-02-2003'))
         self.assertFalse(dates.validate('Thursday 21 March 2017'))
