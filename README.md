@@ -12,11 +12,11 @@ which are imported and exposed in a uniform way.
 
 ## Dates
 
-Dates in ``exactitude`` are handled as ISO 8661 prefixes. That means that valid
+Dates in ``exactitude`` are handled as ISO 8601 prefixes. That means that valid
 dates can indicate a loss of precision by shortening dates down to either a
 year (``2017``), or a year-month combination (``2017-02``).
 
-If a date is not recognized as a valid ISO 8661 prefix and no format has been
+If a date is not recognized as a valid ISO 8601 prefix and no format has been
 specified, ``exactitude`` will attempt to recognize the format used.
 
 
