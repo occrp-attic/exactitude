@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='exactitude',
-    version='2.1.2',
+    version='2.1.3',
     description="A library with real-world data parsers.",
     long_description="",
     classifiers=[
