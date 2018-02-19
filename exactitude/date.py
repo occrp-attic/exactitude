@@ -86,7 +86,7 @@ class DateType(ExactitudeType):
         :rtype: datetime
         """
         try:
-            parsed = dateparser.parse(text)
+            parsed = dateparser.parse(text, dayfirst=True)
             return parsed
 
         except ValueError, TypeError:
