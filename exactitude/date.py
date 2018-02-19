@@ -89,7 +89,7 @@ class DateType(ExactitudeType):
             parsed = dateparser.parse(text, dayfirst=True)
             return parsed
 
-        except ValueError, TypeError:
+        except (ValueError, TypeError) as e:
 
             locales = parsedatetime._locales[:]
 
