@@ -3,6 +3,7 @@ import pytz
 import parsedatetime
 from normality import stringify
 from datetime import datetime, date
+from dateutil import parser as dateparser
 
 from exactitude.common import ExactitudeType
 
@@ -94,3 +95,10 @@ class DateType(ExactitudeType):
             parsed, ok = parser.parse(text)
             if ok:
                 return datetime(*parsed[:6])
+
+        # If that didn't work, try dateutil
+        try:
+            parsed = dateparser.parse(text)
+            return parsed
+        except ValueError, TypeError:
+            return None

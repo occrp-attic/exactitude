@@ -34,6 +34,7 @@ setup(
         'urlnormalizer >= 1.0.3',
         'countrynames >= 1.2',
         'parsedatetime >= 2.1',
+        'python-dateutil >= 2.6.1',
         'phonenumbers >= 8.8.4'
     ],
     tests_require=['nose'],
