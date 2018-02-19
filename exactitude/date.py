@@ -78,27 +78,27 @@ class DateType(ExactitudeType):
         return self._clean_text(text)
 
     def fuzzy_date_parser(self, text):
-        """Thin wrapper around ``parsedatetime`` module.
+        """Thin wrapper around ``parsedatetime`` and ``dateutil`` modules.
         Since there's no upstream suppport for multiple locales, this wrapper
         exists.
         :param str text: Text to parse.
         :returns: A parsed date/time object. Raises exception on failure.
         :rtype: datetime
         """
-        locales = parsedatetime._locales[:]
-
-        # Loop through all the locales and try to parse successfully our string
-        for locale in locales:
-            const = parsedatetime.Constants(locale)
-            const.re_option += re.UNICODE
-            parser = parsedatetime.Calendar(const)
-            parsed, ok = parser.parse(text)
-            if ok:
-                return datetime(*parsed[:6])
-
-        # If that didn't work, try dateutil
         try:
             parsed = dateparser.parse(text)
             return parsed
+
         except ValueError, TypeError:
-            return None
+
+            locales = parsedatetime._locales[:]
+
+            # Loop through all the locales and try to parse successfully our
+            # string
+            for locale in locales:
+                const = parsedatetime.Constants(locale)
+                const.re_option += re.UNICODE
+                parser = parsedatetime.Calendar(const)
+                parsed, ok = parser.parse(text)
+                if ok:
+                    return datetime(*parsed[:6])
