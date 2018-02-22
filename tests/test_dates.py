@@ -58,7 +58,10 @@ class DatesTest(unittest.TestCase):
         self.assertEquals(dates.clean(None), None)
         self.assertEquals(dates.clean(''), None)
         self.assertEquals(dates.clean('2017-04-04'), '2017-04-04')
-        # self.assertEquals(parse_date('2017-4-4'), '2017-04-04')
+        self.assertEquals(dates.clean('2017-4-4'), '2017-04-04')
+
+        self.assertEquals(dates.clean('23-AUG-2001'), '2001-08-23')
+        self.assertEquals(dates.clean('09-jun-1993'), '1993-06-09')
 
         # TODO: make this yield an imprecise date somehow?
         self.assertEquals(dates.clean('4/2017', format="%m/%Y"), '2017-04-01')

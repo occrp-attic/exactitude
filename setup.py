@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='exactitude',
-    version='2.1.2',
+    version='2.1.3',
     description="A library with real-world data parsers.",
     long_description="",
     classifiers=[
@@ -34,6 +34,7 @@ setup(
         'urlnormalizer >= 1.0.3',
         'countrynames >= 1.2',
         'parsedatetime >= 2.1',
+        'python-dateutil >= 2.6.1',
         'phonenumbers >= 8.8.4'
     ],
     tests_require=['nose'],
