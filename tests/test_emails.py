@@ -7,7 +7,7 @@ class EmailsTest(unittest.TestCase):
 
     def test_parse(self):
         self.assertEqual(emails.clean('foo@pudo.org'), 'foo@pudo.org')
-        # self.assertEqual(emails.clean('"foo@pudo.org"'), 'foo@pudo.org')
+        self.assertEqual(emails.clean('"foo@pudo.org"'), 'foo@pudo.org')
         self.assertEqual(emails.clean('pudo.org'), None)
         self.assertEqual(emails.clean(None), None)
         self.assertEqual(emails.clean(5), None)

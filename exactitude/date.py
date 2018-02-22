@@ -66,7 +66,7 @@ class DateType(ExactitudeType):
             try:
                 obj = datetime.strptime(text, format)
                 return obj.date().isoformat()
-            except:
+            except Exception:
                 return None
 
         if guess and not self.validate(text):
@@ -88,11 +88,8 @@ class DateType(ExactitudeType):
         try:
             parsed = dateparser.parse(text, dayfirst=True)
             return parsed
-
-        except (ValueError, TypeError) as e:
-
+        except (ValueError, TypeError):
             locales = parsedatetime._locales[:]
-
             # Loop through all the locales and try to parse successfully our
             # string
             for locale in locales:

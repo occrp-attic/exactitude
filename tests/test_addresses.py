@@ -16,5 +16,5 @@ class AddressesTest(unittest.TestCase):
         self.assertEqual(addresses.clean('huhu,\n haha'), 'huhu, haha')
 
     def test_normalize(self):
-        self.assertEqual(addresses.normalize(UK), ['43 duke street edinburgh eh6 8hh'])  # noqa
+        self.assertEqual(addresses.normalize(UK), ['43 Duke Street, Edinburgh, EH6 8HH'])  # noqa
         self.assertEqual(addresses.normalize('\n  '), [])

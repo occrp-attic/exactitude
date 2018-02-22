@@ -1,5 +1,4 @@
 import re
-from normality import normalize as normalize_text
 from normality.cleaning import collapse_spaces
 
 from exactitude.common import ExactitudeType
@@ -22,4 +21,4 @@ class AddressType(ExactitudeType):
         # TODO: normalize well-known parts like "Street", "Road", etc.
         # TODO: consider using https://github.com/openvenues/pypostal
         addresses = super(AddressType, self).normalize(address, **kwargs)
-        return [normalize_text(a) for a in addresses]
+        return addresses
