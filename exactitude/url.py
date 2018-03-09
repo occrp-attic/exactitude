@@ -17,5 +17,5 @@ class UrlType(ExactitudeType):
         try:
             return normalize_url(url)
         except UnicodeDecodeError:
-            log.warning("Invalid URL: %r" url)
+            log.warning("Invalid URL: %r", url)
             
