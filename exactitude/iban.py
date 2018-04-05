@@ -4,11 +4,9 @@ from normality import stringify
 from stdnum import iban as iban_validator
 
 from exactitude.common import ExactitudeType
-from exactitude.domain import DomainType
 
 
 class IbanType(ExactitudeType):
-    domains = DomainType()
 
     def validate(self, iban, **kwargs):
         iban = stringify(iban)
@@ -23,6 +21,6 @@ class IbanType(ExactitudeType):
     def clean_text(self, text, **kwargs):
         """Create a more clean, but still user-facing version of an
         instance of the type."""
-        if text is not None:
-            text = stringify(text).replace(" ", "")
-            return text
+        text = text.replace(" ", "")
+        text = text.upper()
+        return text
