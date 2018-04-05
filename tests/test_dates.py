@@ -45,13 +45,13 @@ class DatesTest(unittest.TestCase):
         self.assertEquals(dates.clean('2017-5-2T10:00:00'), '2017-05-02T10:00:00')  # noqa
 
     def test_convert_datetime(self):
-        dt=datetime.utcnow()
-        iso, _=dt.isoformat().split('.', 1)
+        dt = datetime.utcnow()
+        iso, _ =dt.isoformat().split('.', 1)
         self.assertEquals(dates.clean(dt), iso)
         self.assertTrue(dates.validate(iso))
 
-        dt=datetime.utcnow().date()
-        iso=dt.isoformat()
+        dt = datetime.utcnow().date()
+        iso = dt.isoformat()
         self.assertEquals(dates.clean(dt), iso)
 
     def test_parse_date(self):
@@ -74,19 +74,16 @@ class DatesTest(unittest.TestCase):
         self.assertEquals(dates.fuzzy_date_parser('nothing'), None)
 
     def test_fuzzy_date_parser_success_english(self):
-        result=dates.fuzzy_date_parser('15 march, 1987')
-
+        result = dates.fuzzy_date_parser('15 march, 1987')
         self.assertIsInstance(result, datetime)
         self.assertEqual(result.strftime('%x'), '03/15/87')
 
     def test_fuzzy_date_parser_success_german(self):
-        result=dates.fuzzy_date_parser(u'15. März 1987')
-
+        result = dates.fuzzy_date_parser(u'15. März 1987')
         self.assertIsInstance(result, datetime)
         self.assertEqual(result.strftime('%x'), '03/15/87')
 
     def test_fuzzy_date_parser_success_spanish(self):
-        result=dates.fuzzy_date_parser(u'15 Marzo 1987')
-
+        result = dates.fuzzy_date_parser(u'15 Marzo 1987')
         self.assertIsInstance(result, datetime)
         self.assertEqual(result.strftime('%x'), '03/15/87')
