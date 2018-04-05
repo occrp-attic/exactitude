@@ -1,5 +1,5 @@
 
-all: clean test dists release
+all: clean test dists
 
 test:
 	nosetests --with-coverage --cover-package=exactitude --cover-erase
@@ -7,8 +7,9 @@ test:
 dists:
 	python setup.py sdist bdist_wheel
 
-release: dists
-	twine upload dist/*
+# Use "bumpversion" instead.
+# release: dists
+# 	twine upload dist/*
 
 clean:
 	rm -rf dist build .eggs
