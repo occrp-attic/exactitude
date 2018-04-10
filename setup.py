@@ -36,7 +36,6 @@ setup(
         'parsedatetime >= 2.1',
         'python-dateutil >= 2.6.1',
         'phonenumbers >= 8.8.4',
-#        'socket >= 17.2',
         'python-stdnum >= 1.8'
     ],
     tests_require=['nose'],

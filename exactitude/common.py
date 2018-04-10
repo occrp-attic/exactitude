@@ -32,6 +32,14 @@ class ExactitudeType(object):
             text = self.clean(text, **kwargs)
         return ensure_list(text)
 
+    def normalize_set(self, items, **kwargs):
+        """Utility to normalize a whole set of values and get unique
+        values."""
+        values = set()
+        for item in ensure_list(items):
+            values.update(self.normalize(item, **kwargs))
+        return list(values)
+
 
 class TextType(ExactitudeType):
     pass
